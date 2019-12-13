@@ -1,16 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Form from './components/Form';
 import ItemsList from './components/ItemsList';
 import uuid from 'uuid/v4';
 import Header from './components/Header';
 
-const initialItems = [
-  {id:uuid(), type:"inc", description:"pagamento mensual", amount:2400},
-  {id:uuid(), type:"exp", description:"Alugel", amount:370}
-]
-
-
+const initialItems = localStorage.getItem("items")
+ ? JSON.parse(localStorage.getItem("items")) : [];
 
 function App() {
 
@@ -19,6 +15,10 @@ function App() {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
 
+  // *********** Itialized **************
+  useEffect(() => {
+    localStorage.setItem("items", JSON.stringify(items));
+  }, [items]);
 
   // *********** functionality **************
   
